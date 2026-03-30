@@ -1,7 +1,7 @@
 # Deployed at:
 
-- ### [url1](https://github.com/stilrdim)
-- ### [url2](https://github.com/stilrdim)
+- ### [Vercel](https://fcc-astro-intro.vercel.app/)
+- ### [Netlify](https://69ca98de5fd7721a446193c0--resplendent-puffpuff-a74797.netlify.app/)
 
 # Astro Starter Kit: Basics
 
