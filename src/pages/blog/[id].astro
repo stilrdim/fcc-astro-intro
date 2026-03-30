@@ -1,0 +1,66 @@
+---
+import H1 from "@components/H1.astro";
+import Main from "@components/Main.astro";
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getCollection, CollectionEntry, render } from "astro:content";
+
+export const getStaticPaths = async () => {
+  const posts = await getCollection("posts");
+  const paths = posts.map((post) => {
+    return {
+      params: {
+        id: post.id,
+      },
+      props: {
+        post,
+      },
+    };
+  });
+  return paths;
+};
+
+type Props = {
+  post: CollectionEntry<"posts">;
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={post.data.title}>
+  <Main>
+    <H1 text={post.data.title} />
+    <Image
+      src={post.data.image}
+      alt={post.data.title}
+      width={1024}
+      height={600 / 1.5}
+      class="rounded-2xl shadow-xl mb-4 aspect-thumbnail object-cover"
+    />
+    <div class="prose prose-lg overflow-visible relative mb-20">
+      <Content />
+    </div>
+  </Main>
+</Layout>
+
+<!-- <a href={`/blog/${post.id}`}>
+  <img
+    src={post.data.image}
+    alt={post.data.title}
+    width={600}
+    height={600 / 1.5}
+    class="rounded-2xl shadow-xl mb-4 aspect-thumbnail object-cover"
+  />
+</a>
+
+<a
+  href={`/blog/${post.id}`}
+  class="text-4xl text-zinc-900 font-semibold inline-block"
+>
+  <h2>{post.data.title}</h2>
+</a>
+
+<p class="text-zinc-500 text-2xl line-clamp-4">
+  {post.body}
+</p> -->
